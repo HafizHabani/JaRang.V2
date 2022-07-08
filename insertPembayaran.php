@@ -9,13 +9,13 @@
 
     $kwitansipembayaran = $_POST['kwitansipembayaran'];
     $totalpembayaran = $_POST['totalpembayaran'];
-
-    $status = $_POST['status'];
+    $statuscek = $_POST['statuscek'];
+    $statuspem =$_POST['statuspem'];
     
-    if(mysqli_query($koneksi, "INSERT INTO ceklist(id_barang, id_pengirim, status) VALUES('$kwitansipembayaran', '$kwitansipembayaran', '$status')")) {
+    if(mysqli_query($koneksi, "INSERT INTO ceklist(id_barang, id_pengirim, id_penerima, statuscek) VALUES('$kwitansipembayaran', '$kwitansipembayaran', '$kwitansipembayaran', '$statuscek')")) {
         $id_ceklist = mysqli_insert_id($koneksi);
 
-        if(mysqli_query($koneksi, "INSERT INTO pembayaran(id_ceklist,kwitansi, harga,status) VALUES('$id_ceklist','$totalpembayaran','$kwitansipembayaran', '$status')")) {
+        if(mysqli_query($koneksi, "INSERT INTO pembayaran(id_ceklist,kwitansi, harga, statuspem) VALUES('$id_ceklist','$totalpembayaran','$kwitansipembayaran', '$statuspem')")) {
             $id_pembayaran = mysqli_insert_id($koneksi);
 
             if(mysqli_query($koneksi, "INSERT INTO pengemasan(id_pembayaran, jumlah, berat) VALUES('$id_pembayaran','$jumlahpengemasan','$beratpengemasan')")) {

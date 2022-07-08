@@ -197,6 +197,17 @@
                           required
                         />
                       </div>
+                      <div class="mb-3">
+                        <label for="defaultFormControlInput" class="form-label">Berat</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          aria-describedby="defaultFormControlHelp"
+                          name="berat"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

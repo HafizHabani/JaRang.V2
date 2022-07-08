@@ -246,7 +246,7 @@
 						<td><?= $result['id']; ?></td>
 						<td><?= $result['id_barang']; ?></td>
 						<td><?= $result['id_pengirim']; ?></td>
-						<td><?= $result['status']; ?></td>
+						<td><?= $result['statuscek']; ?></td>
 						</tr>
 					<?php } ?>
 				</tbody>
@@ -338,7 +338,7 @@
 						<td><?= $result['kwitansi']; ?></td>
 						<td><?= $result['harga']; ?></td>
 						<td><?= $result['id_ceklist']; ?></td>
-						<td><?= $result['Status']; ?></td>
+						<td><?= $result['statuspem']; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

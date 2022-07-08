@@ -91,17 +91,17 @@
                   <h5 class="card-header">Ceklist</h5>
                   <div class="card-body">
                     <div>
-                      <div class="mb-3">
-                        <label for="defaultFormControlInput" class="form-label">Status</label>
+                    <div class="mb-3">
+                        <label for="defaultFormControlInput" class="form-label">status</label>
                         <input
                           type="text"
                           class="form-control"
                           id="defaultFormControlInput"
                           aria-describedby="defaultFormControlHelp"
-                          name="status"
+                          name="statuscek"
                           required
                         />
-                    </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -132,6 +132,17 @@
                           placeholder="Rp."
                           aria-describedby="defaultFormControlHelp"
                           name="totalpembayaran"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="defaultFormControlInput" class="form-label">Status</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          aria-describedby="defaultFormControlHelp"
+                          name="statuspem"
                           required
                         />
                       </div>

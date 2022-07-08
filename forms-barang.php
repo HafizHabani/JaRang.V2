@@ -28,6 +28,7 @@
                         $nama = $data['nama'];
                         $jumlah = $data['jumlah'];
                         $kondisi = $data['kondisi'];
+                        $berat = $berat['berat'];
                     }
                 ?>
                 <form action="http://jarang.com/php/function/update-barang.php?id=<?= $id; ?>" method="post">            
@@ -42,6 +43,10 @@
                     <div class="form-group">
                         <label for="inputSubject">Kondisi</label>
                         <input name="kondisi" type="text" class="form-control" id="inputSubject" value="<?= $kondisi; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSubject">Berat</label>
+                        <input name="kondisi" type="text" class="form-control" id="inputSubject" value="<?= $berat; ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send</button>
                 </form>
