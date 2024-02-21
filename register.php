@@ -1,77 +1,104 @@
 <?php
 
-@include 'koneksi.php';
+include 'koneksi.php';
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
+   $name = $_POST['name'];
+   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   $email = $_POST['email'];
+   $email = filter_var($email, FILTER_SANITIZE_STRING);
+   $pass = trim($_POST['pass']);
+   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+   $cpass = trim($_POST['cpass']);
+   $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+   $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+   $cpass_hash = password_hash($cpass, PASSWORD_DEFAULT);
 
-   $name = mysqli_real_escape_string($koneksi, $_POST['name']);
-   $email = mysqli_real_escape_string($koneksi, $_POST['email']);
-   $pass = md5($_POST['password']);
-   $cpass = md5($_POST['cpassword']);
-   $user_type = $_POST['user_type'];
+   // Debugging output
+   echo "Hash of Password: " . $pass_hash . "<br>";
+   echo "Hash of Confirm Password: " . $cpass_hash . "<br>";
 
-   $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' ";
+   $image = $_FILES['image']['name'];
+   $image_tmp_name = $_FILES['image']['tmp_name'];
+   $image_size = $_FILES['image']['size'];
+   $image_folder = 'uploaded_img/' . $image;
 
-   $result = mysqli_query($koneksi, $select);
+   $select = $koneksi->prepare("SELECT * FROM `users` WHERE email = ?");
+   $select->execute([$email]);
+   $select->store_result();
 
-   if(mysqli_num_rows($result) > 0){
-
-      $error[] = 'user already exist!';
-
-   }else{
-
-      if($pass != $cpass){
-         $error[] = 'password not matched!';
-      }else{
-         $insert = "INSERT INTO user_form(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
-         mysqli_query($koneksi, $insert);
-         header('location:login.php');
+   if ($select->num_rows > 0) {
+      $message[] = 'User already exists!';
+   } else {
+      if ($pass != $cpass) {
+         $message[] = 'Confirm password does not match!';
+      } elseif ($image_size > 2000000) {
+         $message[] = 'Image size is too large!';
+      } else {
+         $insert = $koneksi->prepare("INSERT INTO `users`(name, email, password, image) VALUES(?,?,?,?)");
+         $insert->execute([$name, $email, $cpass, $image]); // Inserting hashed password
+         if ($insert) {
+            move_uploaded_file($image_tmp_name, $image_folder);
+            $message[] = 'Registered successfully!';
+            header('location:login.php');
+         }
       }
    }
-
-};
+}
 
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>register form</title>
+   <title>register</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="loginsystem/css/style.css">
 
 </head>
+
 <body>
-   
-<div class="form-container">
 
-   <form action="" method="post">
-      <h3>register now</h3>
-      <?php
-      if(isset($error)){
-         foreach($error as $error){
-            echo '<span class="error-msg">'.$error.'</span>';
-         };
-      };
-      ?>
-      <input type="text" name="name" required placeholder="enter your name">
-      <input type="email" name="email" required placeholder="enter your email">
-      <input type="password" name="password" required placeholder="enter your password">
-      <input type="password" name="cpassword" required placeholder="confirm your password">
-      <select name="user_type">
-         <option value="user">user</option>
-         <option value="admin">admin</option>
-      </select>
-      <input type="submit" name="submit" value="register now" class="form-btn">
-      <p>already have an account? <a href="login_form.php">login now</a></p>
-   </form>
 
-</div>
+
+   <?php
+   if (isset($message)) {
+      foreach ($message as $message) {
+         echo '
+         <div class="message">
+            <span>' . $message . '</span>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+         </div>
+         ';
+      }
+   }
+   ?>
+
+   <section class="form-container">
+
+      <form action="" method="post" enctype="multipart/form-data">
+         <h3>register now</h3>
+         <input type="text" required placeholder="enter your username" class="box" name="name">
+         <input type="email" required placeholder="enter your email" class="box" name="email">
+         <input type="password" required placeholder="enter your password" class="box" name="pass">
+         <input type="password" required placeholder="confirm your password" class="box" name="cpass">
+         <input type="file" name="image" required class="box" accept="image/jpg, image/png, image/jpeg">
+         <p>already have an account? <a href="login.php">login now</a></p>
+         <input type="submit" value="register now" class="btn" name="submit">
+      </form>
+
+   </section>
 
 </body>
+
 </html>
