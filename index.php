@@ -352,7 +352,7 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="admin.php">Admin</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="login.php">Admin</a></li>
             </ul>
           </div>
         </div>
