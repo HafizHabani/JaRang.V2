@@ -1,12 +1,16 @@
 <?php
 
 include 'koneksi.php';
-
 session_start();
+$user_id = $_SESSION['user_id'];
 
-$admin_id = $_SESSION['admin_id'];
+if(!isset($user_id)){
+   header('location:login.php');
+};
 
-if(!isset($admin_id)){
+if(isset($_GET['logout'])){
+   unset($user_id);
+   session_destroy();
    header('location:login.php');
 }
 
@@ -18,40 +22,35 @@ if(!isset($admin_id)){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>home</title>
 
-   <title>admin page</title>
-
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="loginsystem\css\style.css">
 
 </head>
 <body>
-
-<h1 class="title"> <span>admin</span> profile page </h1>
-
-<section class="profile-container">
-
-   <?php
-      $select_profile = $koneksi->prepare("SELECT * FROM `users` WHERE id = ?");
-      $select_profile->execute([$admin_id]);
-      $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
-   ?>
+   
+<div class="container">
 
    <div class="profile">
-      <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
-      <h3><?= $fetch_profile['name']; ?></h3>
-      <a href="admin_profile_update.php" class="btn">update profile</a>
-      <a href="logout.php" class="delete-btn">logout</a>
-      <div class="flex-btn">
-         <a href="login.php" class="option-btn">login</a>
-         <a href="register.php" class="option-btn">register</a>
-      </div>
+      <?php
+         $select = mysqli_query($koneksi, "SELECT * FROM `user_form` WHERE id = '$user_id'") or die('query failed');
+         if(mysqli_num_rows($select) > 0){
+            $fetch = mysqli_fetch_assoc($select);
+         }
+         if($fetch['image'] == ''){
+            echo '<img src="images/default-avatar.png">';
+         }else{
+            echo '<img src="uploaded_img/'.$fetch['image'].'">';
+         }
+      ?>
+      <h3><?php echo $fetch['name']; ?></h3>
+      <a href="update_profile.php" class="btn">update profile</a>
+      <a href="home.php?logout=<?php echo $user_id; ?>" class="delete-btn">logout</a>
+      <p>new <a href="login.php">login</a> or <a href="register.php">register</a></p>
    </div>
 
-</section>
+</div>
 
 </body>
 </html>
