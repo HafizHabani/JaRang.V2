@@ -463,7 +463,7 @@
           <li><i class="bx bx-chevron-right"></i> <a href="index.php">Home</a></li>
           <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
           <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-		  <li><i class="bx bx-chevron-right"></i> <a href="profil.php">Profil</a></li>
+		  <li><i class="bx bx-chevron-right"></i> <a href="profil.php">Profile</a></li>
         </ul>
       </div>
     </div>
