@@ -41,7 +41,6 @@
           <li><a class="nav-link scrollto" href="#about">Pick Up</a></li>
           <li><a class="nav-link scrollto" href="#services">Track</a></li>
           <li><a class="nav-link scrollto" href="#counts">Service</a></li>
-          <li><a class="nav-link scrollto" href="forms-pengiriman.php">Kirim Barang</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Cek Ongkir</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
