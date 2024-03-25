@@ -1,0 +1,1 @@
+{"version":1,"defects":{"logintest::testValidateFrom":7,"registertest::testValidateFrom":7,"profiltest::testValidateFrom":7,"datapengirimanbarangtest::testValidateFrom":7},"times":{"logintest::testValidateFrom":0.003,"registertest::testValidateFrom":0.003,"profiltest::testValidateFrom":0.003,"datapengirimanbarangtest::testValidateFrom":0.003}}

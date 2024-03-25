@@ -6,11 +6,6 @@ $user_id = $_SESSION['user_id'];
 
 if(isset($_POST['update_profile'])){
 
-   $update_name = mysqli_real_escape_string($koneksi, $_POST['update_name']);
-   $update_email = mysqli_real_escape_string($koneksi, $_POST['update_email']);
-
-   mysqli_query($koneksi, "UPDATE `user_form` SET name = '$update_name', email = '$update_email' WHERE id = '$user_id'") or die('query failed');
-
 
    $update_image = $_FILES['update_image']['name'];
    $update_image_size = $_FILES['update_image']['size'];
