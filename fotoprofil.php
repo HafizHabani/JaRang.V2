@@ -6,7 +6,10 @@ $user_id = $_SESSION['user_id'];
 
 if(isset($_POST['update_profile'])){
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 73938848e8edcbc6301522fbcd301d9e69d63f58
    $update_image = $_FILES['update_image']['name'];
    $update_image_size = $_FILES['update_image']['size'];
    $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
